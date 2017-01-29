@@ -1,4 +1,6 @@
-ruby File.read(".ruby-version").strip.split("-").last
+# frozen_string_literal: true
 source "https://rubygems.org"
 
-gem "sinatra"
+gem "rake"
+gem "opal"
+gem "rubyzip"

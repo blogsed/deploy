@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+$:.unshift File.expand_path("../lib", __dir__)
+
+require "blogs/deploy"
+BLOGS::Deploy::Deployment.new.deploy

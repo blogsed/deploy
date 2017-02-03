@@ -28,8 +28,6 @@ module BLOGS
       REMOTE_NAME = "origin"
       REMOTE_BRANCH = "gh-pages"
 
-      REPO = Repo.new(REPO_PATH)
-      HEAD = REPO.head
       COMMITTER = Actor.new(COMMITTER_NAME, COMMITTER_EMAIL)
       TARGET_REF = "refs/heads/#{REMOTE_BRANCH}"
       GIT_TRANSPORT_OPTIONS = {
@@ -87,11 +85,12 @@ module BLOGS
           end
         end
 
-        root = Tree.new_from_hashmap(REPO, tree_hashmap, HEAD.tree)
-        commit = Commit.new_with_tree(REPO, root, COMMIT_MESSAGE, COMMITTER, [HEAD])
+        repo = Repo.new(REPO_PATH)
+        root = Tree.new_from_hashmap(repo, tree_hashmap, repo.head.tree)
+        commit = Commit.new_with_tree(repo, root, COMMIT_MESSAGE, COMMITTER, [repo.head])
         refspec = "#{commit.id}:#{TARGET_REF}"
 
-        results = REPO.git.push(REMOTE_NAME, [refspec], PUSH_OPTIONS)
+        results = repo.git.push(REMOTE_NAME, [refspec], PUSH_OPTIONS)
         updates = results.flat_map { |result| result.remote_updates.to_a }
         puts updates
 

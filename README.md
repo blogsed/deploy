@@ -14,6 +14,9 @@ The webhook allows immediate builds when the GitHub repository is changed.
 2. Clone the repository
 3. Change into the project directory
 4. Run `bundle` to install dependencies
-5. Set up a Cron job to run [deploy.sh](deploy.sh) every hour
-6. Start the web server with `bundle exec rackup`
-7. Configure a GitHub webhook to the web server.
+5. Make a deployment using `bin/blogs-deploy`.
+6. Create an AWS Lambda using the [`LambdaHandler`](config/aws_lambda.rb) class. Two triggers are supported:
+  - CloudWatch Scheduled Events
+  - SNS GitHub notifications
+7. Build a JAR archive for AWS Lambda with `rake`
+7. Push the JAR to AWS Lambda using `rake deploy`

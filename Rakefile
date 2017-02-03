@@ -4,8 +4,12 @@ $:.unshift File.expand_path("lib", __dir__)
 require "blogs/deploy/env"
 require "blogs/deploy/download"
 
+include BLOGS::Deploy
+
 JRUBY_URL = "https://s3.amazonaws.com/jruby.org/downloads/" \
   "#{JRUBY_VERSION}/jruby-complete-#{JRUBY_VERSION}.jar"
+
+LAMBDA_FUNCTION_NAME = "blogs-deploy"
 
 Rake::FileUtilsExt.verbose false
 
@@ -76,18 +80,16 @@ end
 task :deploy => "build/blogs-deploy.jar" do |task|
   require "aws-sdk"
 
+  puts "Uploading build/blogs-deploy.jar to Amazon S3…"
   s3 = Aws::S3::Resource.new
-  object = s3.bucket("blogs.org.uk-deploy").object("blogs-deploy.jar")
-  files(task).each do |file|
-    puts "Uploading #{file} to Amazon S3…"
-    object.upload_file file
-  end
+  object = s3.bucket(S3_BUCKET).object("blogs-deploy.jar")
+  object.upload_file "build/blogs-deploy.jar"
 
   puts "Updating AWS Lambda function…"
   lambda = Aws::Lambda::Client.new
   lambda.update_function_code(
-    function_name: "blogs-deploy",
-    s3_bucket: "blogs.org.uk-deploy",
+    function_name: LAMBDA_FUNCTION_NAME,
+    s3_bucket: S3_BUCKET,
     s3_key: "blogs-deploy.jar",
   )
 end

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# script/console: Launch a console for the application.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+irb -Ilib -r blogs-deploy -r ./config/aws_lambda

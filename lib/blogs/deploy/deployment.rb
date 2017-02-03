@@ -13,7 +13,7 @@ module BLOGS
 
       SSH_KEY_SOURCE = { bucket: S3_BUCKET, key: "key" }
       KNOWN_HOSTS_SOURCE = { bucket: S3_BUCKET, key: "known_hosts" }
-      REPO_URL = "git@github.com:blogsed/blogsed.github.io"
+      REPO_URL = "git@github.com:blogsed/blogs.org.uk"
 
       SSH_KEY_PATH = "/tmp/ssh"
       KNOWN_HOSTS_PATH = "/tmp/known_hosts"

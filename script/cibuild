@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# script/cibuild: Setup environment for CI to run tests. This is primarily
+#                 designed to run on the continuous integration server.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+echo "CI started at…"
+date "+%H:%M:%S"
+
+if command -v rvm > /dev/null
+then
+  . $rvm_path/scripts/rvm
+  rvm use $(cat .ruby-version) --install
+fi
+
+script/setup
+
+# Build and deploy to AWS Lambda
+bundle exec rake deploy

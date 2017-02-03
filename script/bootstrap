@@ -17,4 +17,5 @@ if command -v brew > /dev/null; then
 fi
 
 echo "==> Installing gem dependencies…"
+gem install --conservative bundler
 bundle install

@@ -2,7 +2,7 @@
 
 Deploys the [BLOGS website](http://blogs.org.uk) to GitHub Pages.
 
-Fetches data from external services like Facebook, then pushes to master on
+Fetches data from external services like Facebook, then pushes to gh-pages on
 [blogsed/blogs.org.uk](https://github.com/blogsed/blogs.org.uk).
 
 The data is updated every hour, and when a webhook is triggered.

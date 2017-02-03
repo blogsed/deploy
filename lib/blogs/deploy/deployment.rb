@@ -26,7 +26,7 @@ module BLOGS
       COMMITTER_EMAIL = "deploy@blogs.org.uk"
       COMMIT_MESSAGE = "Include auto-generated content"
       REMOTE_NAME = "origin"
-      REMOTE_BRANCH = "master"
+      REMOTE_BRANCH = "gh-pages"
 
       REPO = Repo.new(REPO_PATH)
       HEAD = REPO.head

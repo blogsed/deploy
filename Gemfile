@@ -16,5 +16,5 @@ group :build do
   gem "aws-sdk"
   gem "dotenv"
   gem "rake"
-  gem "rubyzip"
+  gem "rubyzip", ">= 1.2.1"
 end
